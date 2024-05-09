@@ -2,3 +2,4 @@ assets/
 .prettierrc
 .gitignore
 bun.lockb
+build.ts
