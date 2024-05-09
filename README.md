@@ -26,6 +26,19 @@ Exports are separated into subpaths because SvelteKit's dependency optimization 
 
 This causes auto-filling imports to be a little more inconvenient in IDEs, any suggestions on how this should be improved are welcome.
 
+## Build
+You can build this package using Bun
+```bash
+bun run build
+```
+
+or `tsx`
+```
+tsx build.ts
+```
+
+You can customize the icon selection by adding or removing icons from the `assets` directory. Make sure that filenames are in `kebab-case.svg`.
+
 ## Author
 
 Made by **Marko Calasan**. Licensed under the **MIT License**.
