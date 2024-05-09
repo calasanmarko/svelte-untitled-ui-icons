@@ -1,0 +1,20 @@
+{
+  "name": "svelte-untitled-ui-icons",
+  "module": "build.ts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Marko Calasan",
+    "email": "calasanmarko@hotmail.com"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "bun build.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
