@@ -17,8 +17,11 @@ function kebabToPascalCase(str: string): string {
 }
 
 const iconToComponent = (icon: IconSource) => ({
+    componentName: icon.componentName,
     fileName: `${icon.componentName}.svelte`,
-    content: `<script>
+    export: `export { default as ${icon.componentName} } from './${icon.componentName}.svelte';`,
+    type: `export class ${icon.componentName} extends SvelteComponentTyped<{size?: string; strokeWidth?: number; class?: string}> {}`,
+    componentContent: `<script>
     export let size = "24";
     export let strokeWidth = 2;
     let customClass = "";
@@ -44,7 +47,9 @@ if (!existsSync(distDir)) {
     await mkdir(distDir);
 }
 
-await readdir(distDir).then((fileNames) => Promise.all(fileNames.map((fileName) => rm(`${distDir}/${fileName}`))));
+await readdir(distDir).then((fileNames) =>
+    Promise.all(fileNames.map((fileName) => rm(`${distDir}/${fileName}`, { recursive: true })))
+);
 
 await readdir(assetDir)
     .then((fileNames) =>
@@ -68,5 +73,15 @@ await readdir(assetDir)
     )
     .then((icons) => icons.map(iconToComponent))
     .then((components) =>
-        Promise.all(components.map((component) => writeFile(`dist/${component.fileName}`, component.content)))
+        Promise.all(
+            components.map(async (component) => {
+                const componentDir = `${distDir}/${component.componentName}`;
+                const typeFileContents = `/// <reference types="svelte" />\nimport { SvelteComponentTyped } from "svelte";\n${component.type}`;
+
+                await mkdir(componentDir);
+                await writeFile(`${componentDir}/index.d.ts`, typeFileContents);
+                await writeFile(`${componentDir}/index.js`, component.export);
+                await writeFile(`${componentDir}/${component.fileName}`, component.componentContent);
+            })
+        )
     );
