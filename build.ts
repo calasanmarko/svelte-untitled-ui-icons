@@ -38,7 +38,11 @@ const iconToComponent = (icon: IconSource) => ({
 `,
 });
 
-const getSvgContent = (svg: string) => svg.slice(svg.indexOf(">") + 1, svg.lastIndexOf("<")).trim();
+const getSvgContent = (svg: string) =>
+    svg
+        .slice(svg.indexOf(">") + 1, svg.lastIndexOf("<"))
+        .replace(' stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"', "")
+        .trim();
 
 const assetDir = "assets";
 const distDir = "dist";
