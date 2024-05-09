@@ -1,6 +1,6 @@
 {
   "name": "svelte-untitled-ui-icons",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -23,5 +23,12 @@
   "peerDependencies": {
     "typescript": "^5.0.0",
     "svelte": "^4.0.0"
-  }
+  },
+  "keywords": [
+    "svelte",
+    "icons",
+    "ui",
+    "untitled-ui",
+    "typescript"
+  ]
 }
